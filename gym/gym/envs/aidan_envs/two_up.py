@@ -52,6 +52,7 @@ class TwoUp(gym.Env):
         self.coin2 = ""
         self.round_result = ""
         self.heads_tails = ["H", "T"]
+        self.curr_bet = 0
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -68,6 +69,7 @@ class TwoUp(gym.Env):
 
         bets = bets_heads + bets_tails
         bet_in_dollars = bets[action]
+        self.curr_bet = bet_in_dollars
         self.side = ""
 
         if action <= 15:
@@ -105,6 +107,7 @@ class TwoUp(gym.Env):
         return self._get_obs()
 
     def render(self, mode='human'):
+        print("Side bet", self.side, "Amount: $" + self.curr_bet)
         print("Flip:", self.coin1, self.coin2, "Side bet", self.side, "Result:", self.round_result, "Winnings: ", self.winnings, "Current wealth: ", self.wealth, "; Rounds left: ", self.rounds)
         print()
 

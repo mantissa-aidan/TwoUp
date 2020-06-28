@@ -52,7 +52,7 @@ def run(environment, model_name, key=None):
     env = gym.make(environment)
     env = gym.wrappers.Monitor(env, tdir, force=True)
     agent = DQNAgent(env, trained_model=model_name)
-    EPISODES = 100
+    EPISODES = 1
     env.seed(0)
     for episode in range(EPISODES):
         state, reward, done = env.reset(), 0.0, False

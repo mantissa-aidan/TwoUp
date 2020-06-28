@@ -3,7 +3,13 @@ import gym
 import tempfile
 from DQN import DQNAgent
 from tqdm import *
+import os
+import datetime
+import numpy as np
 
+from keras.callbacks import TensorBoard 
+
+import tensorflow as tf
 
 def train(environment, model_name=None, key=None):
     tdir = tempfile.mkdtemp()
@@ -13,15 +19,25 @@ def train(environment, model_name=None, key=None):
     env.seed(0)
     # agent.load_model("TwoUp-v0_model.h5")
     EPISODES = 5000
+    current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    log_dir = 'logs/dqn/' + current_time
+    total_rewards = np.empty(EPISODES)
     for episode in trange(EPISODES):
         state, reward, done = env.reset(), 0.0, False
         action = agent.action(state, reward, done, episode)
+        summary_writer = tf.summary.create_file_writer(log_dir)
+        total_rewards[episode] = reward
+        avg_rewards = total_rewards[max(0, episode - 100):(episode + 1)].mean()
         while not done:
             # env.render()
             next_state, reward, done, _ = env.step(action)
             agent.store(state, action, reward, next_state, done)
             state = next_state
             action = agent.action(state, reward, done, episode)
+        with summary_writer.as_default():
+            tf.summary.scalar('episode reward', reward, step=episode)
+            tf.summary.scalar('running avg reward(100)', avg_rewards, step=episode)
+
         if model_name and (episode == EPISODES - 1 or episode % 10 == 0):
             agent.save_model(filename=model_name)
             pass

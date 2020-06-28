@@ -1,13 +1,16 @@
 import h5py
 import numpy as np
 from collections import deque
+import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
 from keras.models import load_model
 
+import os
+import datetime
+
 #For GPU training on windows
-import tensorflow as tf
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 ### For gpu training on WSL

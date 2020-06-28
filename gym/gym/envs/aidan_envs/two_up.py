@@ -107,7 +107,7 @@ class TwoUp(gym.Env):
         return self._get_obs()
 
     def render(self, mode='human'):
-        print("Side bet", self.side, "Amount: $" + self.curr_bet)
+        print("Side bet", self.side, "Amount: $" , self.curr_bet)
         print("Flip:", self.coin1, self.coin2, "Side bet", self.side, "Result:", self.round_result, "Winnings: ", self.winnings, "Current wealth: ", self.wealth, "; Rounds left: ", self.rounds)
         print()
 

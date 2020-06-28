@@ -36,7 +36,7 @@ def train(environment, model_name=None, key=None):
             action = agent.action(state, reward, done, episode)
         with summary_writer.as_default():
             tf.summary.scalar('episode reward', reward, step=episode)
-            tf.summary.scalar('running avg reward(100)', avg_rewards, step=episode)
+            # tf.summary.scalar('running avg reward(100)', avg_rewards, step=episode)
 
         if model_name and (episode == EPISODES - 1 or episode % 10 == 0):
             agent.save_model(filename=model_name)
@@ -73,5 +73,5 @@ if __name__ == "__main__":
     api_key = ""
     my_model = environment + '_model_initial_wealth_200_rounds_per_episode_10.h5'
     
-    train(environment=environment, key=api_key, model_name=my_model)
-    #run(environment=environment, key=api_key, model_name=my_model)
+    # train(environment=environment, key=api_key, model_name=my_model)
+    run(environment=environment, key=api_key, model_name=my_model)

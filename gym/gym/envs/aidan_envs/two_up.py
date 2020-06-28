@@ -35,7 +35,7 @@ class TwoUp(gym.Env):
     """
     metadata = {'render.modes': ['human']}
 
-    def __init__(self, initial_wealth=100, max_wealth=10000, max_rounds=300):
+    def __init__(self, initial_wealth=200, max_wealth=10000, max_rounds=10):
         super(TwoUp, self).__init__()
         #change this encoding so its just 1 discrete space
         self.action_space = spaces.Discrete(32)

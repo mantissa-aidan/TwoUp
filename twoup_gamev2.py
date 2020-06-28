@@ -53,6 +53,7 @@ def run(environment, model_name, key=None):
     env = gym.wrappers.Monitor(env, tdir, force=True)
     agent = DQNAgent(env, trained_model=model_name)
     EPISODES = 100
+    env.seed(0)
     for episode in range(EPISODES):
         state, reward, done = env.reset(), 0.0, False
         action = agent.action(state, reward, done, episode, training=False)
@@ -72,6 +73,5 @@ if __name__ == "__main__":
     api_key = ""
     my_model = environment + '_model_initial_wealth_200_rounds_per_episode_10.h5'
     
-    #wtf
-    # train(environment=environment, key=api_key, model_name=my_model)
-    run(environment=environment, key=api_key, model_name=my_model)
+    train(environment=environment, key=api_key, model_name=my_model)
+    #run(environment=environment, key=api_key, model_name=my_model)
